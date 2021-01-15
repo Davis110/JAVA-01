@@ -1,0 +1,128 @@
+PS D:\JAVA-WORK\gitHub\ONC\ONC-OP\target\classes\com\onc\op\sys> javap -c -s -v -l HellowTest.class
+Classfile /D:/JAVA-WORK/gitHub/JAVA-01/target/classes/com/jk/week_01/HellowTest.class
+  Last modified 2021-1-15; size 606 bytes
+  MD5 checksum 7692351719cb0548edcc382f359139e0
+  Compiled from "HellowTest.java"
+public class com.jk.week_01.HellowTest
+  minor version: 0
+  major version: 52
+  flags: ACC_PUBLIC, ACC_SUPER
+Constant pool:
+   #1 = Methodref          #5.#27         // java/lang/Object."<init>":()V
+   #2 = Double             100.0d
+   #4 = Class              #28            // com/jk/week_01/HellowTest
+   #5 = Class              #29            // java/lang/Object
+   #6 = Utf8               <init>
+   #7 = Utf8               ()V
+   #8 = Utf8               Code
+   #9 = Utf8               LineNumberTable
+  #10 = Utf8               LocalVariableTable
+  #11 = Utf8               this
+  #12 = Utf8               Lcom/jk/week_01/HellowTest;
+  #13 = Utf8               main
+  #14 = Utf8               ([Ljava/lang/String;)V
+  #15 = Utf8               i
+  #16 = Utf8               I
+  #17 = Utf8               args
+  #18 = Utf8               [Ljava/lang/String;
+  #19 = Utf8               sum
+  #20 = Utf8               D
+  #21 = Utf8               numbers
+  #22 = Utf8               [I
+  #23 = Utf8               StackMapTable
+  #24 = Class              #22            // "[I"
+  #25 = Utf8               SourceFile
+  #26 = Utf8               HellowTest.java
+  #27 = NameAndType        #6:#7          // "<init>":()V
+  #28 = Utf8               com/jk/week_01/HellowTest
+  #29 = Utf8               java/lang/Object
+{
+  public com.jk.week_01.HellowTest();
+    descriptor: ()V
+    flags: ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: invokespecial #1                  // Method java/lang/Object."<init>":()V
+         4: return
+      LineNumberTable:
+        line 7: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       5     0  this   Lcom/jk/week_01/HellowTest;
+
+  public static void main(java.lang.String[]);
+    descriptor: ([Ljava/lang/String;)V
+    flags: ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=4, locals=5, args_size=1
+         0: dconst_0                // dubbo 常量0入栈
+         1: dstore_1                // 将栈顶double型数值存入第二个局部变量 
+         2: iconst_5                // int 常量5入栈
+         3: newarray       int      // 创建一个int类型数组，并且其引用进栈        
+         5: dup                     // 复制栈数组，并且复制值进栈
+         6: iconst_0                // int 常量0入栈
+         7: iconst_1                // int 常量1入栈
+         8: iastore                 // 将栈顶int型数值存入指定数组的指定下标处
+         9: dup                     // 复制栈数组，并且复制值进栈
+        10: iconst_1                // int 常量1入栈
+        11: bipush        23        // 将一个byte型常量值推送至栈顶
+        13: iastore                 // 将栈顶int型数值存入指定数组的指定下标处
+        14: dup
+        15: iconst_2
+        16: bipush        13
+        18: iastore
+        19: dup
+        20: iconst_3
+        21: bipush        123
+        23: iastore
+        24: dup
+        25: iconst_4
+        26: sipush        12323
+        29: iastore
+        30: astore_3
+        31: iconst_0
+        32: istore        4
+        34: iload         4
+        36: aload_3
+        37: arraylength
+        38: if_icmpge     64
+        41: dload_1
+        42: aload_3
+        43: iload         4
+        45: iaload
+        46: i2d
+        47: dadd
+        48: dstore_1
+        49: dload_1
+        50: ldc2_w        #2                  // double 100.0d
+        53: dcmpl
+        54: ifle          58
+        57: return
+        58: iinc          4, 1
+        61: goto          34
+        64: return
+      LineNumberTable:
+        line 10: 0
+        line 11: 2
+        line 12: 31
+        line 13: 41
+        line 14: 49
+        line 15: 57
+        line 12: 58
+        line 18: 64
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+           34      30     4     i   I
+            0      65     0  args   [Ljava/lang/String;
+            2      63     1   sum   D
+           31      34     3 numbers   [I
+      StackMapTable: number_of_entries = 3
+        frame_type = 254 /* append */
+          offset_delta = 34
+          locals = [ double, class "[I", int ]
+        frame_type = 23 /* same */
+        frame_type = 250 /* chop */
+          offset_delta = 5
+}
+SourceFile: "HellowTest.java"
