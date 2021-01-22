@@ -1,0 +1,131 @@
+1、串行化GC
+java -XX:+UseSerialGC  -XX:-UseAdaptiveSizePolicy  -Xms512m -Xmn512m  -XX:+PrintGCDetails -XX:+PrintGCDateStamps GCLogAnalysis
+
+正在执行...
+2021-01-22T11:29:16.041+0800: [GC (Allocation Failure) [DefNew: 419392K->52416K(471808K), 0.0873039 secs][Tenured: 67355K->67371K(67372K), 0.0148417 secs] 419392K->119770K(539180K), [Metaspace: 2593K->2593K(1056768K)], 0.1040986 secs] [Times: user=0.03 sys=0.08, real=0.11 secs]
+2021-01-22T11:29:16.267+0800: [GC (Allocation Failure) [DefNew: 419392K->52415K(471808K), 0.0850501 secs][Tenured: 159319K->159150K(159492K), 0.0341986 secs] 486763K->194006K(631300K), [Metaspace: 2593K->2593K(1056768K)], 0.1209673 secs] [Times: user=0.08 sys=0.03, real=0.12 secs]
+2021-01-22T11:29:16.456+0800: [GC (Allocation Failure) [DefNew: 419392K->52416K(471808K), 0.0632437 secs] 578542K->301177K(737060K), 0.0635964 secs] [Times: user=0.05 sys=0.02, real=0.06 secs]
+2021-01-22T11:29:16.592+0800: [GC (Allocation Failure) [DefNew: 471808K->52416K(471808K), 0.0731450 secs][Tenured: 355022K->317112K(355156K), 0.0874630 secs] 720569K->317112K(826964K), [Metaspace: 2593K->2593K(1056768K)], 0.1636706 secs] [Times: user=0.14 sys=0.03, real=0.16 secs]
+执行结束!共生成对象次数:5829
+Heap
+ def new generation   total 471808K, used 16761K [0x0000000081800000, 0x00000000a17f0000, 0x00000000a1800000)
+  eden space 419392K,   3% used [0x0000000081800000, 0x000000008285e568, 0x000000009b190000)
+  from space 52416K,   0% used [0x000000009b190000, 0x000000009b190000, 0x000000009e4c0000)
+  to   space 52416K,   0% used [0x000000009e4c0000, 0x000000009e4c0000, 0x00000000a17f0000)
+ tenured generation   total 528524K, used 317112K [0x00000000a1800000, 0x00000000c1c23000, 0x0000000100000000)
+   the space 528524K,  59% used [0x00000000a1800000, 0x00000000b4dae2b0, 0x00000000b4dae400, 0x00000000c1c23000)
+ Metaspace       used 2599K, capacity 4486K, committed 4864K, reserved 1056768K
+  class space    used 280K, capacity 386K, committed 512K, reserved 1048576K
+
+2、并行GC
+java -XX:+UseParallelGC  -XX:-UseAdaptiveSizePolicy  -Xms512m -Xmn512m  -XX:+PrintGCDetails -XX:+PrintGCDateStamps GCLogAnalysis
+
+正在执行...
+2021-01-22T11:26:41.007+0800: [GC (Allocation Failure) --[PSYoungGen: 393728K->393728K(458752K)] 393728K->425335K(491008K), 0.0465491 secs] [Times: user=0.03 sys=0.34, real=0.05 secs]
+2021-01-22T11:26:41.056+0800: [Full GC (Ergonomics) [PSYoungGen: 393728K->78464K(458752K)] [ParOldGen: 31607K->32241K(32256K)] 425335K->110705K(491008K), [Metaspace: 2593K->2593K(1056768K)], 0.0487638 secs] [Times: user=0.33 sys=0.01, real=0.05 secs]
+2021-01-22T11:26:41.185+0800: [GC (Allocation Failure) [PSYoungGen: 393728K->65022K(458752K)] 425969K->181479K(575488K), 0.0341791 secs] [Times: user=0.11 sys=0.19, real=0.03 secs]
+2021-01-22T11:26:41.221+0800: [Full GC (Ergonomics) [PSYoungGen: 65022K->55250K(458752K)] [ParOldGen: 116456K->116293K(116736K)] 181479K->171543K(575488K), [Metaspace: 2593K->2593K(1056768K)], 0.0451637 secs] [Times: user=0.23 sys=0.02, real=0.05 secs]
+2021-01-22T11:26:41.347+0800: [Full GC (Ergonomics) [PSYoungGen: 448978K->124953K(458752K)] [ParOldGen: 116293K->116091K(116736K)] 565271K->241045K(575488K), [Metaspace: 2593K->2593K(1056768K)], 0.0545615 secs] [Times: user=0.33 sys=0.00, real=0.06 secs]
+2021-01-22T11:26:41.459+0800: [Full GC (Ergonomics) [PSYoungGen: 393728K->156058K(458752K)] [ParOldGen: 116091K->116095K(116736K)] 509819K->272154K(575488K), [Metaspace: 2593K->2593K(1056768K)], 0.0599405 secs] [Times: user=0.47 sys=0.00, real=0.06 secs]
+2021-01-22T11:26:41.569+0800: [Full GC (Ergonomics) [PSYoungGen: 393728K->176373K(458752K)] [ParOldGen: 116095K->116353K(116736K)] 509823K->292727K(575488K), [Metaspace: 2593K->2593K(1056768K)], 0.0648253 secs] [Times: user=0.39 sys=0.02, real=0.07 secs]
+2021-01-22T11:26:41.683+0800: [Full GC (Ergonomics) [PSYoungGen: 393728K->191537K(458752K)] [ParOldGen: 116353K->116398K(116736K)] 510081K->307935K(575488K), [Metaspace: 2593K->2593K(1056768K)], 0.0667701 secs] [Times: user=0.50 sys=0.02, real=0.07 secs]
+执行结束!共生成对象次数:6873
+Heap
+ PSYoungGen      total 458752K, used 205617K [0x00000000e0000000, 0x00000000fff80000, 0x0000000100000000)
+  eden space 393728K, 52% used [0x00000000e0000000,0x00000000ec8cc678,0x00000000f8080000)
+  from space 65024K, 0% used [0x00000000f8080000,0x00000000f8080000,0x00000000fc000000)
+  to   space 65024K, 0% used [0x00000000fc000000,0x00000000fc000000,0x00000000fff80000)
+ ParOldGen       total 116736K, used 116398K [0x0000000081800000, 0x0000000088a00000, 0x00000000e0000000)
+  object space 116736K, 99% used [0x0000000081800000,0x00000000889ab938,0x0000000088a00000)
+ Metaspace       used 2599K, capacity 4486K, committed 4864K, reserved 1056768K
+  class space    used 280K, capacity 386K, committed 512K, reserved 1048576K
+  
+3、CMS GC
+java -XX:+UseConcMarkSweepGC  -XX:-UseAdaptiveSizePolicy -XX:ParallelGCThreads=4  -Xms512m -Xmn512m  -XX:+PrintGCDetails -XX:+PrintGCDateStamps GCLogAnalysis
+
+正在执行...
+2021-01-22T13:50:25.140+0800: [GC (Allocation Failure) [ParNew: 419392K->52416K(471808K), 0.0692891 secs] 419392K->118958K(538544K), 0.0696197 secs] [Times: user=0.08 sys=0.17, real=0.07 secs]
+2021-01-22T13:50:25.211+0800: [GC (CMS Initial Mark) [1 CMS-initial-mark: 66542K(66736K)] 127449K(538544K), 0.0011240 secs] [Times: user=0.00 sys=0.00, real=0.00 secs]
+2021-01-22T13:50:25.213+0800: [CMS-concurrent-mark-start]
+2021-01-22T13:50:25.238+0800: [CMS-concurrent-mark: 0.024/0.024 secs] [Times: user=0.06 sys=0.00, real=0.02 secs]
+2021-01-22T13:50:25.238+0800: [CMS-concurrent-preclean-start]
+2021-01-22T13:50:25.240+0800: [CMS-concurrent-preclean: 0.001/0.001 secs] [Times: user=0.00 sys=0.00, real=0.00 secs]
+2021-01-22T13:50:25.241+0800: [CMS-concurrent-abortable-preclean-start]
+2021-01-22T13:50:25.297+0800: [GC (Allocation Failure) [ParNew2021-01-22T13:50:25.346+0800: [CMS-concurrent-abortable-preclean: 0.003/0.103 secs] [Times: user=0.14 sys=0.11, real=0.11 secs]
+: 471808K->52416K(471808K), 0.0554795 secs] 538350K->221774K(641704K), 0.0558632 secs] [Times: user=0.09 sys=0.09, real=0.06 secs]
+2021-01-22T13:50:25.355+0800: [GC (CMS Final Remark) [YG occupancy: 60715 K (471808 K)][Rescan (parallel) , 0.0006293 secs][weak refs processing, 0.0001099 secs][class unloading, 0.0007120 secs][scrub symbol table, 0.0004740 secs][scrub string table, 0.0002219 secs][1 CMS-remark: 169358K(169896K)] 230074K(641704K), 0.0031022 secs] [Times: user=0.00 sys=0.00, real=0.00 secs]
+2021-01-22T13:50:25.360+0800: [CMS-concurrent-sweep-start]
+2021-01-22T13:50:25.361+0800: [CMS-concurrent-sweep: 0.000/0.000 secs] [Times: user=0.00 sys=0.00, real=0.00 secs]
+2021-01-22T13:50:25.362+0800: [CMS-concurrent-reset-start]
+2021-01-22T13:50:25.365+0800: [CMS-concurrent-reset: 0.002/0.002 secs] [Times: user=0.00 sys=0.00, real=0.01 secs]
+2021-01-22T13:50:25.462+0800: [GC (Allocation Failure) [ParNew: 471808K->52416K(471808K), 0.0749231 secs] 641166K->326977K(754076K), 0.0752701 secs] [Times: user=0.28 sys=0.03, real=0.08 secs]
+2021-01-22T13:50:25.539+0800: [GC (CMS Initial Mark) [1 CMS-initial-mark: 274561K(282268K)] 327049K(754076K), 0.0006228 secs] [Times: user=0.00 sys=0.00, real=0.00 secs]
+2021-01-22T13:50:25.541+0800: [CMS-concurrent-mark-start]
+2021-01-22T13:50:25.549+0800: [CMS-concurrent-mark: 0.008/0.008 secs] [Times: user=0.03 sys=0.00, real=0.01 secs]
+2021-01-22T13:50:25.550+0800: [CMS-concurrent-preclean-start]
+2021-01-22T13:50:25.553+0800: [CMS-concurrent-preclean: 0.001/0.001 secs] [Times: user=0.00 sys=0.00, real=0.00 secs]
+2021-01-22T13:50:25.554+0800: [CMS-concurrent-abortable-preclean-start]
+2021-01-22T13:50:25.616+0800: [GC (Allocation Failure) [ParNew2021-01-22T13:50:25.656+0800: [CMS-concurrent-abortable-preclean: 0.001/0.101 secs] [Times: user=0.22 sys=0.03, real=0.10 secs]
+: 471808K->52416K(471808K), 0.0708590 secs] 746369K->426546K(846676K), 0.0711938 secs] [Times: user=0.24 sys=0.06, real=0.07 secs]
+2021-01-22T13:50:25.688+0800: [GC (CMS Final Remark) [YG occupancy: 53105 K (471808 K)][Rescan (parallel) , 0.0005717 secs][weak refs processing, 0.0001245 secs][class unloading, 0.0002282 secs][scrub symbol table, 0.0004241 secs][scrub string table, 0.0001720 secs][1 CMS-remark: 374130K(374868K)] 427235K(846676K), 0.0036403 secs] [Times: user=0.00 sys=0.00, real=0.00 secs]
+2021-01-22T13:50:25.693+0800: [CMS-concurrent-sweep-start]
+2021-01-22T13:50:25.694+0800: [CMS-concurrent-sweep: 0.001/0.001 secs] [Times: user=0.00 sys=0.00, real=0.00 secs]
+2021-01-22T13:50:25.695+0800: [CMS-concurrent-reset-start]
+2021-01-22T13:50:25.700+0800: [CMS-concurrent-reset: 0.003/0.003 secs] [Times: user=0.00 sys=0.00, real=0.01 secs]
+2021-01-22T13:50:25.767+0800: [GC (Allocation Failure) [ParNew: 471808K->52416K(471808K), 0.0437909 secs] 784974K->464774K(993752K), 0.0440300 secs] [Times: user=0.17 sys=0.02, real=0.04 secs]
+2021-01-22T13:50:25.812+0800: [GC (CMS Initial Mark) [1 CMS-initial-mark: 412358K(521944K)] 473810K(993752K), 0.0004548 secs] [Times: user=0.00 sys=0.00, real=0.00 secs]
+2021-01-22T13:50:25.813+0800: [CMS-concurrent-mark-start]
+2021-01-22T13:50:25.822+0800: [CMS-concurrent-mark: 0.008/0.008 secs] [Times: user=0.00 sys=0.00, real=0.01 secs]
+2021-01-22T13:50:25.823+0800: [CMS-concurrent-preclean-start]
+2021-01-22T13:50:25.825+0800: [CMS-concurrent-preclean: 0.001/0.001 secs] [Times: user=0.00 sys=0.00, real=0.00 secs]
+2021-01-22T13:50:25.825+0800: [CMS-concurrent-abortable-preclean-start]
+执行结束!共生成对象次数:8853
+Heap
+ par new generation   total 471808K, used 334534K [0x0000000081800000, 0x00000000a17f0000, 0x00000000a1800000)
+  eden space 419392K,  67% used [0x0000000081800000, 0x0000000092b81980, 0x000000009b190000)
+  from space 52416K, 100% used [0x000000009e4c0000, 0x00000000a17f0000, 0x00000000a17f0000)
+  to   space 52416K,   0% used [0x000000009b190000, 0x000000009b190000, 0x000000009e4c0000)
+ concurrent mark-sweep generation total 521944K, used 412358K [0x00000000a1800000, 0x00000000c15b6000, 0x0000000100000000)
+ Metaspace       used 2599K, capacity 4486K, committed 4864K, reserved 1056768K
+  class space    used 280K, capacity 386K, committed 512K, reserved 1048576K
+
+  
+4、G1 GC
+java -XX:+UseG1GC  -XX:-UseAdaptiveSizePolicy -XX:ParallelGCThreads=4  -Xms512m -Xmn512m  -XX:+PrintGCDetails -XX:+PrintGCDateStamps GCLogAnalysis
+
+2021-01-22T17:42:19.366+0800: [GC concurrent-root-region-scan-start]
+2021-01-22T17:42:19.368+0800: [GC concurrent-root-region-scan-end, 0.0019528 secs]
+2021-01-22T17:42:19.374+0800: [GC concurrent-mark-start]
+2021-01-22T17:42:19.385+0800: [GC concurrent-mark-end, 0.0108341 secs]
+2021-01-22T17:42:19.388+0800: [GC remark [Finalize Marking, 0.0001418 secs] [GC ref-proc, 0.0001661 secs] [Unloading, 0.0006121 secs], 0.0023275 secs]
+ [Times: user=0.06 sys=0.00, real=0.00 secs]
+2021-01-22T17:42:19.393+0800: [GC cleanup 361M->338M(1047M), 0.0010200 secs]
+ [Times: user=0.00 sys=0.00, real=0.00 secs]
+2021-01-22T17:42:19.395+0800: [GC concurrent-cleanup-start]
+2021-01-22T17:42:19.395+0800: [GC concurrent-cleanup-end, 0.0006015 secs]
+2021-01-22T17:42:19.580+0800: [GC pause (G1 Evacuation Pause) (young), 0.0332216 secs]
+   [Parallel Time: 30.0 ms, GC Workers: 4]
+      [GC Worker Start (ms): Min: 946.7, Avg: 946.8, Max: 946.8, Diff: 0.1]
+      [Ext Root Scanning (ms): Min: 0.1, Avg: 0.1, Max: 0.2, Diff: 0.1, Sum: 0.5]
+      [Update RS (ms): Min: 0.1, Avg: 0.3, Max: 0.7, Diff: 0.6, Sum: 1.1]
+         [Processed Buffers: Min: 0, Avg: 2.3, Max: 3, Diff: 3, Sum: 9]
+      [Scan RS (ms): Min: 0.0, Avg: 0.1, Max: 0.1, Diff: 0.1, Sum: 0.2]
+      [Code Root Scanning (ms): Min: 0.0, Avg: 0.0, Max: 0.0, Diff: 0.0, Sum: 0.0]
+      [Object Copy (ms): Min: 29.0, Avg: 29.3, Max: 29.4, Diff: 0.4, Sum: 117.3]
+      [Termination (ms): Min: 0.0, Avg: 0.1, Max: 0.1, Diff: 0.1, Sum: 0.3]
+      [GC Worker Other (ms): Min: 0.0, Avg: 0.0, Max: 0.0, Diff: 0.0, Sum: 0.1]
+      [GC Worker Total (ms): Min: 29.8, Avg: 29.9, Max: 29.9, Diff: 0.1, Sum: 119.5]
+      [GC Worker End (ms): Min: 976.6, Avg: 976.6, Max: 976.6, Diff: 0.0]
+   [Code Root Fixup: 0.0 ms]
+   [Code Root Purge: 0.0 ms]
+   [Clear CT: 0.2 ms]
+   [Other: 3.1 ms]
+      [Choose CSet: 0.0 ms]
+      [Ref Proc: 0.1 ms]
+      [Ref Enq: 0.0 ms]
+      [Redirty Cards: 0.2 ms]
+      [Humongous Reclaim: 0.1 ms]
+      [Free CSet: 0.2 ms]
+   [Eden: 448.0M(448.0M)->0.0B(448.0M) Survivors: 64.0M->64.0M Heap: 869.1M(1047.0M)->455.3M(1308.0M)]
+ [Times: user=0.11 sys=0.02, real=0.06 secs]
+执行结束!共生成对象次数:7147
