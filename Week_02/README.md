@@ -10,6 +10,6 @@ GC日志说明
 
     源代码已上传；
 
-    OkHttpClientService 为基于OkHttp的请求服务核心类；
+    HttpClientUtils 为基于httpClient的请求服务核心类；
 
-    OkHttpClientServiceTest 为基于OkHttp的请求服务测试用例。
+    OkHttpClientUtil 为基于OkHttp的请求服务测试用例。
